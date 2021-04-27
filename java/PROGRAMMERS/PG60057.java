@@ -1,5 +1,3 @@
-package PROGRAMMERS;
-
 import java.util.*;
 
 class Solution {
@@ -28,15 +26,15 @@ class Solution {
         			//rest
         			if (idx != 0)
         			{
-            		    int beforeCnt = stateMap.get(before);
+            			int beforeCnt = stateMap.get(before);
             			
-            	        if (beforeCnt != 1)
-            		    {
-            			    sb.append(beforeCnt);
-            		    }
+            			if (beforeCnt != 1)
+            			{
+            				sb.append(beforeCnt);
+            			}
             			
-            		    sb.append(before);
-            		    stateMap.remove(before);	
+            			sb.append(before);
+            			stateMap.remove(before);	
         			}
         			
         			stateMap.put(target, 1);
