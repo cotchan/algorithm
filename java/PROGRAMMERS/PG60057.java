@@ -1,5 +1,3 @@
-package PROGRAMMERS;
-
 import java.util.*;
 
 class Solution {
