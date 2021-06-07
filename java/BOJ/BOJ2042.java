@@ -11,7 +11,7 @@ public class Main {
 	
 	public static void update(long[] segTree, int idx, Long num, int bit, int st, int en) {
 		
-		//±âÀú »ç·Ê
+		//Â±Ã¢Ã€Ãº Â»Ã§Â·ÃŠ
 		if (st == en) {
 			segTree[bit] = num;
 			return;
