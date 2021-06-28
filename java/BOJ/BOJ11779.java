@@ -96,6 +96,7 @@ public class Main {
         st--; en--;
 
         List<Integer> result = djikstra(st, en);
+        
         System.out.println(minCost);
         System.out.println(result.size());
 
