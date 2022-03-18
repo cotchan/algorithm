@@ -1,6 +1,3 @@
-package prgrms;
-
-
 import java.util.Stack;
 
 class Solution {
