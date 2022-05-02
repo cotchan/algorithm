@@ -14,7 +14,7 @@ public class Main {
         K = Integer.parseInt(br.readLine());
         final int MAX_VALUE = 100 * K;
 
-        isPrime = new boolean[MAX_VALUE+1];
+        isPrime = new boolean[MAX_VALUE];
         Arrays.fill(isPrime, true);
 
         for (int i = 2; i <= (int) Math.sqrt(MAX_VALUE); ++i) {
