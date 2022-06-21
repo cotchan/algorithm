@@ -13,7 +13,19 @@ public class Main {
      */
     static int N, K, P, X;
     static final int BIT_COUNT = 7;
-    static String[] numbers = {"1110111","0010010","1011101","1011011","0111010","1101011","1101111","1010010","1111111","1111011"};
+
+    static String[] numbers = {
+            "1110111",  //0
+            "0010010",  //1
+            "1011101",  //2
+            "1011011",  //3
+            "0111010",  //4
+            "1101011",  //5
+            "1101111",  //6
+            "1010010",  //7
+            "1111111",  //8
+            "1111011"   //9
+    };
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -38,7 +50,7 @@ public class Main {
     }
 
     public static boolean isPossible(int before, int after, int ledCount) {
-         int totalBitCount = 0;
+        int totalBitCount = 0;
 
         //자릿수 맞추고
         int beforeLength = String.valueOf(before).length();
@@ -60,8 +72,13 @@ public class Main {
         return totalBitCount <= ledCount;
     }
 
-    public static String changedNumber(int before, int zeroCount) {
-        StringBuilder sb = new StringBuilder(String.valueOf(before));
+    /**
+     * @param number: 대상 숫자
+     * @param zeroCount: 앞에 채워야 하는 0의 갯수
+     * @return: e.g. 000number
+     */
+    public static String changedNumber(int number, int zeroCount) {
+        StringBuilder sb = new StringBuilder(String.valueOf(number));
         for (int i = 0; i < zeroCount; ++i) {
             sb.insert(0, '0');
         }
@@ -71,20 +88,23 @@ public class Main {
 
     /**
      * 자릿수는 맞췄다고 가정
+     * getChangedBitCount()를 사용해서 전체 자릿수 바꾸는데 필요한 비트를 계산합니다.
      */
     public static int getTotalChangedBitCount(String from, String to) {
         int loopSize = from.length();
-        int result = 0;
+        int totalChangedBitCount = 0;
 
         for (int i = 0; i < loopSize; ++i) {
             int fromNumber = from.charAt(i) - '0';
             int toNumber = to.charAt(i) - '0';
-            result += getChangedBitCount(fromNumber, toNumber);
+            totalChangedBitCount += getChangedBitCount(fromNumber, toNumber);
         }
 
-        return result;
+        return totalChangedBitCount;
     }
 
+    //앞에 미리 선언한 'LED 전광판 숫자'를 나타내는 String[] numbers을 통해
+    //0~9 한자리 숫자끼리 서로 바꾸는데 몇 개 비트가 필요한지 계산합니다.
     public static int getChangedBitCount(int from, int to) {
         int result = 0;
 
