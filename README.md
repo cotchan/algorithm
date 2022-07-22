@@ -1,3 +1,3 @@
-## algorithm
+## Algorithm
 
 Solving algorithm problems.
