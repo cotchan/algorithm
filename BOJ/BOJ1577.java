@@ -5,8 +5,6 @@ public class Main {
 
     static final int UP = 0;
     static final int LEFT = 1;
-    static final int DOWN = 2;
-    static final int RIGHT = 3;
 
     static int N, M, K;
     static long dp[][];
@@ -20,7 +18,7 @@ public class Main {
         M = Integer.parseInt(nmInfo[1]);
 
         dp = new long[M+1][N+1];
-        roads = new boolean[4][M+1][N+1];
+        roads = new boolean[2][M+1][N+1];
 
         K = Integer.parseInt(br.readLine());
 
@@ -36,13 +34,11 @@ public class Main {
                 int bigY = Math.max(y1, y2);
                 int smallY = Math.min(y1, y2);
                 roads[UP][bigY][x1] = true;
-                roads[DOWN][smallY][x1] = true;
             } else if (y1 == y2) {
                 // 가로로 놓인 경우
                 int bigX = Math.max(x1, x2);
                 int smallX = Math.min(x1, x2);
                 roads[LEFT][y1][bigX] = true;
-                roads[RIGHT][y1][smallX] = true;
             }
         }
 
