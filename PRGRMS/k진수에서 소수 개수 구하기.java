@@ -1,51 +1,42 @@
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 class Solution {
+
     public int solution(int n, int k) {
-
-        String convertNumber = convertNumber(n, k);
-        String[] candidateNumbers = convertNumber.split("0");
-
-        List<String> numbers = Arrays.stream(candidateNumbers)
-                                    .filter(number -> !number.isEmpty())
-                                    .collect(Collectors.toList());
-
-        List<String> result = numbers.stream().filter(number -> isPrime(number)).collect(Collectors.toList());
-
-        return result.size();
-    }
-
-    //진법 변환
-    public String convertNumber(int n, int k) {
-
-        int nowNumber = n;
+        //k진수로 만들기
         StringBuilder sb = new StringBuilder();
 
-        while (nowNumber > 0) {
-            int q = nowNumber / k;
-            int r = nowNumber % k;
+        int number = n;
 
+        while (number != 0) {
+            int q = number / k;
+            int r = number % k;
+            number = q;
             sb.append(r);
-            nowNumber = q;
         }
 
-        return sb.reverse().toString();
+        sb.reverse();
+        String[] numbers = sb.toString().split("0");
+
+        int answer = 0;
+        for (String s : numbers) {
+            try {
+                long value = Long.parseLong(s);
+                if (isPrime(value)) answer++;
+            } catch (NumberFormatException e) {
+                continue;
+            }
+        }
+
+        return answer;
     }
 
-    public boolean isPrime(String number) {
+    public boolean isPrime(long value) {
+        if (value == 1) return false;
+        else if (value == 2) return true;
 
-        Long candidateNumber = Long.valueOf(number);
-
-        if (candidateNumber < 2) {
-            return false;
-        }
-
-        for (int loop = 2; loop <= (int)Math.sqrt(candidateNumber); ++loop) {
-            if (candidateNumber % loop == 0) {
-                return false;
-            }
+        for (int i = 2; i <= (int)Math.sqrt(value); ++i) {
+            if (value % i == 0) return false;
         }
 
         return true;
