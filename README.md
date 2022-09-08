@@ -1,3 +1,3 @@
 ## Algorithm
 
-Solving algorithm problem
+Solving algorithm problems
