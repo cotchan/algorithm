@@ -1,77 +1,45 @@
-import java.util.*;
-
 class Solution {
 
-    public static List<Integer>[] parents, children;
+    /**
+     * [A,B] => A가 B를 이겼다
+     */
+
+    static boolean[][] winnerDp, loserDp;
 
     public int solution(int n, int[][] results) {
-        int answer = 0;
+        winnerDp = new boolean[n][n];
+        loserDp = new boolean[n][n];
 
-        parents = new List[n];
-        children = new List[n];
-
-        for (int i = 0; i < n; ++i) {
-            parents[i] = new ArrayList<>();
-            children[i] = new ArrayList<>();
-        }
 
         for (int[] result : results) {
-            int parent = result[0];
-            int child = result[1];
+            int winner = result[0];
+            int lower = result[1];
+            winner--; lower--;
 
-            parent--; child--;
-
-            parents[child].add(parent);
-            children[parent].add(child);
+            winnerDp[winner][lower] = true;
+            loserDp[lower][winner] = true; //lower가 winner한테 졌다
         }
 
-        for (int i = 0; i < n; ++i) {
-            int cnt = bfs(n, i);
-
-            if (cnt == n - 1) {
-                answer++;
+        for (int k = 0; k < n; ++k) {
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < n; ++j) {
+                    if (winnerDp[i][k] && winnerDp[k][j]) winnerDp[i][j] = true;
+                    if (loserDp[i][k] && loserDp[k][j]) loserDp[i][j] = true;
+                }
             }
+        }
+
+        int answer = 0;
+        for (int i = 0; i < n; ++i) {
+            int sum = 0;
+            for (int j = 0; j < n; ++j) {
+                if (winnerDp[i][j]) sum++;
+                if  (loserDp[i][j]) sum++;
+            }
+
+            if (sum == n-1) answer++;
         }
 
         return answer;
-    }
-
-    public int bfs(int n, int node) {
-
-        int result = 0;
-        
-        Queue<Integer> que = new LinkedList<>();
-        boolean[] visited = new boolean[n];
-        visited[node] = true;
-
-        que.add(node);
-
-        while (!que.isEmpty()) {
-            int now = que.poll();
-
-            for (int nxt : parents[now]) {
-                if (!visited[nxt]) {
-                    visited[nxt] = true;
-                    que.add(nxt);
-                    result++;
-                }
-            }
-        }
-
-        que.add(node);
-
-        while (!que.isEmpty()) {
-            int now = que.poll();
-
-            for (int nxt : children[now]) {
-                if (!visited[nxt]) {
-                    visited[nxt] = true;
-                    que.add(nxt);
-                    result++;
-                }
-            }
-        }
-
-        return result;
     }
 }
